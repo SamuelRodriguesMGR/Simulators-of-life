@@ -2,37 +2,20 @@
 
 const canvas = document.getElementById('life');
 const ctx = canvas.getContext('2d');
+const start_button = document.getElementById('start');
+const  stop_button = document.getElementById('stop');
 
 // Размер клетки и сетки
-const TILE_SIZE = 16;
-const ROWS = canvas.height / TILE_SIZE;
-const COLS = canvas.width / TILE_SIZE;
+const CELL_SIZE = 10;
+const ROWS = canvas.height / CELL_SIZE;
+const COLS = canvas.width / CELL_SIZE;
+const all_sprites = [];
 
 // Основные переменные
-let grid = create_empty_grid();
-let isRunning = true;
+let running = false;
+let animation_id = null;
 
-// Создание пустой сетки
-function create_empty_grid() {
-    return Array(ROWS).fill().map(() => Array(COLS).fill(0));
-}
-
-// Отрисовка сетки
-function draw_grid() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (let y = 0; y < ROWS; y++) {
-        for (let x = 0; x < COLS; x++) {
-            if (grid[y][x]) {
-                ctx.fillStyle = 'black';
-                ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, TILE_SIZE - 1);
-            }
-        }
-    }
-}
-
-class Bot
-{
+class Bot {
     constructor(x, y, color, size) {
         this.x = x;
         this.y = y;
@@ -42,16 +25,43 @@ class Bot
     }
 
     draw() {
-        canvas.fillStyle = this.color
-        canvas.fillRect(this.x, this.y, this.size, this.size)
+        ctx.fillStyle = this.color
+        ctx.fillRect(this.x, this.y, this.size, this.size)
     }
 }
 
 // Основной цикл игры
-function gameLoop() {
-    draw_grid();
+function Loop() {
+    // Отрисовываем все частицы
+    for (let i = 0; i < all_sprites.length; i++) {
+        all_sprites[i].draw()
+    }
     
-    requestAnimationFrame(gameLoop);
+    requestAnimationFrame(Loop);
+    
 }
 
-gameLoop();
+// Обработка кликов по канвасу (можно добавлять/удалять клетки)
+canvas.addEventListener('click', (event) => {
+    if (running) return;
+    const x = Math.floor(event.offsetX / CELL_SIZE) * CELL_SIZE;
+    const y = Math.floor(event.offsetY / CELL_SIZE) * CELL_SIZE;
+    var new_bot = new Bot(x, y, "red", CELL_SIZE - 1);
+    all_sprites.push(new_bot)
+});
+
+// Управление кнопками
+start_button.addEventListener('click', () => {
+    if (!running) {
+        running = true;
+    }
+});
+
+stop_button.addEventListener('click', () => {
+    running = false;
+    if (animation_id) {
+        cancelAnimationFrame(animation_id);
+    }
+});
+
+Loop();
