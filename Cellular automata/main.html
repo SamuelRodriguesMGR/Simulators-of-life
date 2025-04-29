@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Игра Жизнь</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid #000;
+            background: #fff;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Игра Жизнь</h1>
+    <canvas id="life" width="600" height="400"></canvas>
+    <div>
+        <button id="start">Старт</button>
+        <button id="stop">Стоп</button>
+        <button id="clear">Очистить</button>
+        <button id="random">Случайное поле</button>
+    </div>
+    <script src="life.js"></script>
+</body>
+</html>
