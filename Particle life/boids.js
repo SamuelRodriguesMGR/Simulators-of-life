@@ -91,7 +91,7 @@ function update() {
     canvas.clearRect(0, 0, WIDTH, HEIGHT)
     
     // Отрисовываем снова
-    canvas.fillStyle = "Black"
+    canvas.fillStyle = "rgb(15, 15, 15)"
     canvas.fillRect(0, 0, WIDTH, HEIGHT)
 
     // Отрисовываем все частицы
