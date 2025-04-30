@@ -9,8 +9,8 @@ class Particle
     }
 
     draw() {
-        canvas.fillStyle = this.color
-        canvas.fillRect(this.x, this.y, this.size, this.size)
+        ctx.fillStyle = this.color
+        ctx.fillRect(this.x, this.y, this.size, this.size)
     }
 
     process() {
@@ -83,30 +83,37 @@ function random_rules() {
     }
 }
 
-function update() {
 
+// Основной цикл игры
+function Loop() {
     random_rules()
 
     // Очищаем поле
-    canvas.clearRect(0, 0, WIDTH, HEIGHT)
-    
+    ctx.clearRect(0, 0, WIDTH, HEIGHT)
+
     // Отрисовываем снова
-    canvas.fillStyle = "rgb(15, 15, 15)"
-    canvas.fillRect(0, 0, WIDTH, HEIGHT)
+    ctx.fillStyle = "rgb(15, 15, 15)"
+    ctx.fillRect(0, 0, WIDTH, HEIGHT)
 
     // Отрисовываем все частицы
     for (let i = 0; i < all_particles.length; i++) {
         all_particles[i].process()
         all_particles[i].draw()
     }
-
-    // Обновляем
-    requestAnimationFrame(update)
+    
+    if (isRunning) {
+        animationId = requestAnimationFrame(Loop);
+    }
 }
 
-const canvas = document.getElementById("life").getContext("2d");
+const canvas = document.getElementById('life');
+const ctx = canvas.getContext("2d");
+const startBtn = document.getElementById('start');
 const WIDTH = document.getElementById("life").width; 
 const HEIGHT = document.getElementById("life").height; 
+
+let isRunning = false;
+let animationId = null;
 
 const all_particles = [];
 
@@ -129,4 +136,15 @@ const list_random = []
 for(let i = 0; i < group_array.length * group_array.length; i++)
     { list_random.push(random_num_float()); console.log(list_random[i])}
 
-update()
+// Управление кнопками
+startBtn.addEventListener('click', () => {
+    if (!isRunning) {
+        isRunning = true;
+        Loop();
+    } else {
+        isRunning = false;
+        if (animationId) {
+            cancelAnimationFrame(animationId);
+    }
+    }
+});

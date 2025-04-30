@@ -1,31 +1,54 @@
-
 <!DOCTYPE html>
-<html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <title>Particle Life</title>
-
-        <style>
-            header {
+<html>
+<head>
+    <title>Игра Жизнь</title>
+    <style>
+        header {
                 background-color: #1965FF;
                 color: white;
                 text-align: center;
                 padding: 10px 0;
             }
-            #life {
+        #life {
                 display: block;
                 margin: 0 auto;
             }
 
-        </style>
-    </head>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid #000;
+            background: #fff;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
 
+    </style>
+</head>
+
+
+
+<body>
     <header>
         <h1>Particle Life</h1>
     </header>
+    
+    <canvas id="life" width="1000" height="700"></canvas>
+    <div>
+        <button id="start">Pause</button>
+    </div>
+    <script src="boids.js"></script>
+</body>
+    
 </html> 
 
-<canvas id="life" width="1000" height="700"></canvas>
-<script src="boids.js"></script>
