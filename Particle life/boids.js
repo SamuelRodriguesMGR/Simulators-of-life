@@ -112,13 +112,13 @@ const startBtn = document.getElementById('start');
 const WIDTH = document.getElementById("life").width; 
 const HEIGHT = document.getElementById("life").height; 
 
-let isRunning = false;
+let isRunning = true;
 let animationId = null;
 
 const all_particles = [];
 
 const SIZE_PARTICLE = 4
-const FORCE = 0.5
+const FORCE = 0.3
 
 const LEN_PARTICLES = 300
 const yellow = add_group(LEN_PARTICLES, "yellow");
@@ -135,6 +135,8 @@ const group_array = [yellow, red, green, blue, white, purple, orange, aqua];
 const list_random = []
 for(let i = 0; i < group_array.length * group_array.length; i++)
     { list_random.push(random_num_float()); console.log(list_random[i])}
+
+Loop()
 
 // Управление кнопками
 startBtn.addEventListener('click', () => {
